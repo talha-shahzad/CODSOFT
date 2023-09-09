@@ -45,61 +45,68 @@ int Board_Checker(int* arr,int size)
 
 }
 
-void user1(int* arr,int loc,int* c)
+void user1(int* arr,int loc,int* c,int val=1)
 {
-    arr[loc-1]=1;
+    arr[loc-1]=val;
     *c=*c+1;
 }
-void user2(int* arr,int loc,int *c)
+void user2(int* arr,int loc,int *c,int val=2)
 {
-    arr[loc-1]=2;
+    arr[loc-1]=val;
     *c=*c+1;
 }
 
 
-int main()
-{
-     int loc=0;
-  int* locval = new int[9];
-  for(int i=0;i<9;i++)
-  locval[i]=0;
-    cout<<"-----______________----- TIC TAC TOE -----___________-----"<<endl;
-    cout<<"Game Starting...... "<<endl;
+int main() {
+    bool runner = true;
 
-int* count=new int;
-*count=0;
-  Display(locval,9);
-  int checker=0;
-  while(checker<=0)
-  {
-      cout<<"enter number (1-9) : ";
-      cin>>loc;
-      user1(locval,loc,count);
-      Display(locval,9);
-      checker=Board_Checker(locval,9);
-      if(checker>0 || *count>=9)
-          break;
-      cout<<"enter number : ";
-      cin>>loc;
-      user2(locval,loc,count);
-      Display(locval,9);
-      checker=Board_Checker(locval,9);
+    while (runner) {
+        int opt=0,opt2=0;
+        int *locval = new int[9];
+        for (int i = 0; i < 9; i++)
+            locval[i] = 0;
+        int loc = 0;
+        cout << "-----______________----- TIC TAC TOE -----___________-----" << endl;
+        cout << "Game Starting...... " << endl;
 
-      if(checker>0 || *count>=9)
-          break;
+        cout<<"Press 1 for choosing O press 2 for choosing X"<<endl;
+        cin>>opt;
+        if(opt==1)
+            opt2=2;
+        else
+            opt2=1;
+        int *count = new int;
+        *count = 0;
+        Display(locval, 9);
+        int checker = 0;
+        while (checker <= 0) {
+            cout << "enter number (1-9) : ";
+            cin >> loc;
+            user1(locval, loc, count,opt);
+            Display(locval, 9);
+            checker = Board_Checker(locval, 9);
+            if (checker > 0 || *count >= 9)
+                break;
+            cout << "enter number : ";
+            cin >> loc;
+            user2(locval, loc, count,opt2);
+            Display(locval, 9);
+            checker = Board_Checker(locval, 9);
 
-  }
+            if (checker > 0 || *count >= 9)
+                break;
 
- if(checker==1)
-  {
-      cout<<"CONGRATULATION PLAYER 1 WINS"<<endl;
-  }
- else if(checker==2)
- {
-        cout<<"CONGRATULATION PLAYER 2 WINS"<<endl;
- }
- else
-     cout<<"ALAS!! Match is Drawn"<<endl;
+        }
 
+        if (checker == opt) {
+            cout << "CONGRATULATION PLAYER 1 WINS" << endl;
+        } else if (checker == opt2) {
+            cout << "CONGRATULATION PLAYER 2 WINS" << endl;
+        } else
+            cout << "ALAS!! Match is Drawn" << endl;
+    cout<<"do you want to continue press 1 for yes and 0 for no"<<endl;
+    cin >>runner;
+
+    }
 
 }
